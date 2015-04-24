@@ -1,0 +1,82 @@
+Muestra 4 Videos, cada uno en un cuarto de la ventana.
+* Utiliza 4 texturas.
+* Utiliza un sampler2d
+* Utiliza opencv para obtener los frames del video.
+
+----------------------
+Algoritmo de dibujado:
+----------------------
+<pre>
+crear 4 objetos textura en la placa de video,
+configurar tamaños y propiedades de mapeo.
+
+crear 4 cuadrados
+configurar posiciones y coordenadas de mapeo de texturas
+copiar la informacion de los cuadrados a la placa de video
+
+while true:
+    clear_screen
+    for i,video in enumerate(videos):
+        obtener_frame_de_video_en_buffer
+        configurar sampler 2D para que use la textura i
+        copiar el frame de video del buffer a la memoria de la placa(textura)
+        dibujar en el back-buffer 
+    Esperar a que sea tiempo de dibujar (hardcoded a 24 fps)
+    swap_buffers
+</pre>
+
+--------
+DUDAS
+--------
+2. Se intentó utilizar utilizar 1/4 del tamaño del video como textura y se
+renderiza raro. Se muestra parte derecha del frame en la parte ixquierda
+y tambien se muestran lineas. Parece ser que no son ni las coordenadas
+de las texturas, ni la configuracion de filtering y escalado. Cuando
+se carga la textura en su tamaño original y se intenta mostrar en un tamaño
+mas chico (escalado) funciona perfecto. El problema pasa cuando se carga 1/4 de
+la textura.
+
+3. (FIXED) Con los shaders se intentó hacer cosas dependiendo de la coordenada de los
+vertices, pero los valores de las coordenadas parecian no estar entre -1.0 y 1.0.
+YA ENTENDI => los vertices y atributos que llegan a los shaders son los
+que estan en el VBO, y no todos los que estan el medio.
+Es decir, si usamos 3 vertices en el VBO y después dibujamos un triangulo,
+al shader solo llegan los atributos de estos 3 vertices y NO todos los vertices
+del triangulo.
+
+
+Mostar varias videos:
+--------------------
+
+IDEA 1:
+-------
+    Utilizar un solo sampler 2D en el fragment shader.
+    Utilizar 2 texturas OpenGL.
+    Dibujar un cuadrado con una textura.
+    Cambiar el uniform Sampler por la siguiente unidad texutra
+    Dibujar
+
+Resultado:
+Se intento mostrar diferentes videos usando una textura por video y  un
+solo Sampler2D y no funcionó. Siempre mostó el mismo video. Para esto 
+se cambiaba el uniform del Sampler2D para que tome de cada textura.
+Parece que no estan bindeados bien las texturas con los samplers => Al setear GLError retorna GL_INVALID_VALUE.
+
+FUNCIONÓ!!!!!!! Estaba seteando mal el valorl del uniform:
+    Yo ponia GL_TEXTURE0 + i (elGL_TEXTURE0 no va, solo se usa para el ActiveTexture)
+
+IDEA 2:
+-------
+    Utilizar solo un sampler 2D.
+    Utilizar solo un objeto textura.
+    Actualizar la textura antes de dibujar cada cuadro. 
+    
+El problema es que las texturas deberian ser todas del mismo tamaño?
+    
+Resultado: Funcionó (ver video_player_2)
+No entiendo porque se muestra arriba el video que debería mostrarse abajo
+
+
+
+
+
