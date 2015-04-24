@@ -28,4 +28,5 @@
 *.app
 
 #kdevelop projects
-.kdev/
+**/.kdev4
+*.kdev4
