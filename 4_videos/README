@@ -20,7 +20,7 @@ while true:
         obtener_frame_de_video_en_buffer
         configurar sampler 2D para que use la textura i
         copiar el frame de video del buffer a la memoria de la placa(textura)
-        dibujar en el back-buffer 
+        dibujar en el back-buffer el cuadrado correspondiente a este video 
     Esperar a que sea tiempo de dibujar (hardcoded a 24 fps)
     swap_buffers
 </pre>
