@@ -30,3 +30,7 @@
 #kdevelop projects
 **/.kdev4
 *.kdev4
+
+#file backups
+**/*~
+**/*.swp
