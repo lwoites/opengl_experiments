@@ -1,0 +1,3 @@
+
+#define glmixer_VERSION_MAJOR @glmixer_VERSION_MAJOR@
+#define glmixer_VERSION_MINOR @glmixer_VERSION_MINOR@
