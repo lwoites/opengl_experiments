@@ -27,18 +27,18 @@ Pixel B -> x=1, y=1, z=1, alpha=1.0
 
 Now, suppose that we first draw A and then Pixel B.
 When drawing A, opengl sets A as the nearest pixel (it's the only one)
-When we draw B, opengl sees that A is more near than B so doesn't draw B.
+When we draw B, opengl sees that A is more near than B so it doesn't draw B.
 So, in this case while we would expect that pixel A will be mixed with pixel
 B, this isn't happenning. This is because the depth test is filtering pixel B 
-at all and it is not drew.
+at all and openGL is not being drew it. So pixel A will mix with the
+background.
 
 If we draw first B and the A, the blend will work as we expect. So
-the key is ordering the pixels from back to front when we're using
+the key here is ordering the pixels from back to front when we're using
 depth testing.
 
 On the web there are some algorithms to sort this situation:
 
 1.
 2.
-
 
