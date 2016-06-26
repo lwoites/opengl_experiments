@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <highgui.h>
+#include <opencv2/opencv.hpp>
 
 #include <GL/glew.h>
 #include <GL/gl.h>
