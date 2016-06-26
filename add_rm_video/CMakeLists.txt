@@ -22,6 +22,7 @@ configure_file (
 
 find_package(OpenCV REQUIRED)
 find_package(GLEW REQUIRED)
+find_package(OpenGL REQUIRED)
 
 
 include_directories(
@@ -41,6 +42,7 @@ target_link_libraries (add_rm_video
   "${OpenCV_LIBRARIES}"
   "${GLEW_LIBRARIES}"
    glfw
+  "${OPENGL_LIBRARIES}"
 )
 
 # install(TARGETS add_rm_video 
